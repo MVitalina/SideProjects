@@ -1162,7 +1162,7 @@
     "Level": "Tier 1",
     "Worktime": 40,
     "OutputQuantity": 3,
-    "Input1": "Iron ore",
+    "Input1": "Iron Ore",
     "Input1_Quantity": 2,
     "Input2": "Coal",
     "Input2_Quantity": 1,
@@ -1521,6 +1521,19 @@
     "Input3_Quantity": 0
   },
   {
+    "Product": "Raw Rubber",
+    "Building": "",
+    "Level": "Raw Resource",
+    "Worktime": 15,
+    "OutputQuantity": 1,
+    "Input1": "",
+    "Input1_Quantity": 0,
+    "Input2": "",
+    "Input2_Quantity": 0,
+    "Input3": "",
+    "Input3_Quantity": 0
+  },
+  {
     "Product": "Cotton",
     "Building": "",
     "Level": "Raw Resource",
@@ -1639,6 +1652,32 @@
   },
   {
     "Product": "Wheat",
+    "Building": "",
+    "Level": "Raw Resource",
+    "Worktime": 15,
+    "OutputQuantity": 1,
+    "Input1": "",
+    "Input1_Quantity": 0,
+    "Input2": "",
+    "Input2_Quantity": 0,
+    "Input3": "",
+    "Input3_Quantity": 0
+  },
+  {
+    "Product": "Vegetables",
+    "Building": "",
+    "Level": "Raw Resource",
+    "Worktime": 15,
+    "OutputQuantity": 1,
+    "Input1": "",
+    "Input1_Quantity": 0,
+    "Input2": "",
+    "Input2_Quantity": 0,
+    "Input3": "",
+    "Input3_Quantity": 0
+  },
+  {
+    "Product": "Potato",
     "Building": "",
     "Level": "Raw Resource",
     "Worktime": 15,
