@@ -10,7 +10,7 @@ namespace RiseOfIndustryHelper
     public partial class Product
     {
         [JsonProperty("Product")]
-        public string ProductProduct { get; set; }
+        public string ProductName { get; set; }
 
         [JsonProperty("Building")]
         public string Building { get; set; }
@@ -19,7 +19,7 @@ namespace RiseOfIndustryHelper
         public string Level { get; set; }
 
         [JsonProperty("Worktime")]
-        public int Worktime { get; set; }
+        public int Workdays { get; set; }
 
         [JsonProperty("OutputQuantity")]
         public int OutputQuantity { get; set; }
