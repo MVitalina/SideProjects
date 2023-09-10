@@ -37,25 +37,28 @@
             // 
             // rtbIn
             // 
+            rtbIn.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             rtbIn.Location = new Point(12, 12);
             rtbIn.Name = "rtbIn";
-            rtbIn.Size = new Size(498, 216);
+            rtbIn.Size = new Size(208, 216);
             rtbIn.TabIndex = 1;
             rtbIn.Text = "";
             // 
             // rtbOut
             // 
+            rtbOut.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             rtbOut.Location = new Point(12, 234);
             rtbOut.Name = "rtbOut";
-            rtbOut.Size = new Size(776, 216);
+            rtbOut.Size = new Size(404, 283);
             rtbOut.TabIndex = 2;
             rtbOut.Text = "";
             // 
             // bStart
             // 
-            bStart.Location = new Point(516, 205);
+            bStart.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            bStart.Location = new Point(226, 131);
             bStart.Name = "bStart";
-            bStart.Size = new Size(272, 23);
+            bStart.Size = new Size(190, 97);
             bStart.TabIndex = 3;
             bStart.Text = "Start";
             bStart.UseVisualStyleBackColor = true;
@@ -63,9 +66,10 @@
             // 
             // bAdd
             // 
-            bAdd.Location = new Point(516, 41);
+            bAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            bAdd.Location = new Point(226, 41);
             bAdd.Name = "bAdd";
-            bAdd.Size = new Size(272, 23);
+            bAdd.Size = new Size(190, 23);
             bAdd.TabIndex = 5;
             bAdd.Text = "Add";
             bAdd.UseVisualStyleBackColor = true;
@@ -73,10 +77,11 @@
             // 
             // cbProducts
             // 
+            cbProducts.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             cbProducts.FormattingEnabled = true;
-            cbProducts.Location = new Point(516, 12);
+            cbProducts.Location = new Point(226, 12);
             cbProducts.Name = "cbProducts";
-            cbProducts.Size = new Size(272, 23);
+            cbProducts.Size = new Size(190, 23);
             cbProducts.TabIndex = 6;
             cbProducts.Click += cbProducts_Click;
             // 
@@ -84,7 +89,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 466);
+            ClientSize = new Size(428, 529);
             Controls.Add(cbProducts);
             Controls.Add(bAdd);
             Controls.Add(bStart);

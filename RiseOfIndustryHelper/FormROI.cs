@@ -28,13 +28,27 @@ namespace RiseOfIndustryHelper
         {
             List<Situation> situations = ParseInput();
 
-            string result = "";
+            string resultStr = "";
             foreach (Situation s in situations)
             {
-                result += s.CalculateBruteForce();
+                string currentStr = $"{s.ProductName.ToUpper()}:\n";
+                string rawStr = "";
+
+                Dictionary<string, Result> resultDict = new();
+                s.CalculateBruteForce(ref resultDict);
+
+                foreach (var item in resultDict.Values)
+                {
+                    if (item.IsRaw)
+                        rawStr += $"{item.BuildingCountToAdd} {item.ProductName}\n";
+                    else
+                        currentStr += $"{item.BuildingCountToAdd} {item.Building} ({item.ProductName})\n";
+                }
+
+                resultStr += currentStr + rawStr + "\n";
             }
 
-            rtbOut.Text = result;
+            rtbOut.Text = resultStr;
         }
 
         private List<Product> ParseJson()

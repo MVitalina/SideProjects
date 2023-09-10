@@ -13,6 +13,7 @@ namespace RiseOfIndustryHelper
             ProductName = product;
             NeededQuantity = quantity;
             NeededWorkdays = workdays;
+            //TODO add check for ProductName
             Product = FormROI.ProductsDictionary[ProductName];
             Nested = nested;
          }
@@ -23,52 +24,57 @@ namespace RiseOfIndustryHelper
         public Product Product { get; set; }
         public bool Nested { get; set; }
 
-        public string CalculateBruteForce()
+        public void CalculateBruteForce(ref Dictionary<string, Result> resultDict)
         {
-            string result = "";
-            //TODO autocomplete
-            //TODO check if ProductName from input contains in dict
+            //string result = "";
             int factoriesNeeded = CalculateFactories(Product.Workdays, Product.OutputQuantity);
 
-            if (!Nested)
+            //if (!Nested)
+            //{
+            //    result += $"{ProductName.ToUpper()}:\n";
+            //}
+
+            resultDict[ProductName] = new Result()
             {
-                result += $"{ProductName.ToUpper()}:\n";
-            }
+                Building = Product.Building,
+                BuildingCountToAdd = factoriesNeeded,
+                ProductName = ProductName
+            };
 
-            result += $"{factoriesNeeded} {Product.Building} ({ProductName})\n";
-            string rawResult = "";
-            //TODO list/dictionary as return
-
-            CalculateInputProduct(ref result, ref rawResult, 
+            CalculateInputProduct(ref resultDict, 
                 Product.Input1Quantity * factoriesNeeded, 
                 Product.Input1);
-
-            CalculateInputProduct(ref result, ref rawResult,
+            
+            CalculateInputProduct(ref resultDict,
                 Product.Input2Quantity * factoriesNeeded,
                 Product.Input2);
-
-            CalculateInputProduct(ref result, ref rawResult,
+            
+            CalculateInputProduct(ref resultDict,
                 Product.Input3Quantity * factoriesNeeded,
                 Product.Input3);
-
-            return result + rawResult;
         }
 
-        void CalculateInputProduct(ref string result, ref string rawResult, int inputQuantityNeeded, string product)
+        void CalculateInputProduct(ref Dictionary<string, Result> resultDict, int inputQuantityNeeded, string product)
         {
             if (string.IsNullOrEmpty(product))
             {
                 return;
             }
 
+            //TODO add check for product contains in dict
             if (FormROI.ProductsDictionary[product].Level == "Raw Resource")
             {
-                rawResult += $"{inputQuantityNeeded} {product}\n";
+                resultDict[product] = new Result()
+                {
+                    IsRaw = true,
+                    BuildingCountToAdd = inputQuantityNeeded,
+                    ProductName = product
+                };
                 return;
             }
 
-            Situation input1Situation = new(product, inputQuantityNeeded, NeededWorkdays, true);
-            result += input1Situation.CalculateBruteForce();
+            Situation inputSituation = new(product, inputQuantityNeeded, NeededWorkdays, true);
+            inputSituation.CalculateBruteForce(ref resultDict);
         }
 
         private int CalculateFactories(int workdays, int quantity) 
