@@ -35,14 +35,14 @@ namespace RiseOfIndustryHelper
                 string rawStr = "";
 
                 Dictionary<string, Result> resultDict = new();
-                s.CalculateBruteForce(ref resultDict);
+                s.Calculate(ref resultDict, CalculationType.IncludeEfficiency); //TODO checkbox CalculationType
 
                 foreach (var item in resultDict.Values)
                 {
                     if (item.IsRaw)
                         rawStr += $"{item.BuildingCountToAdd} {item.ProductName}\n";
                     else
-                        currentStr += $"{item.BuildingCountToAdd} {item.Building} ({item.ProductName})\n";
+                        currentStr += $"{item.BuildingCountToAdd} {item.Building} {item.Efficiency} ({item.ProductName})\n";
                 }
 
                 resultStr += currentStr + rawStr + "\n";

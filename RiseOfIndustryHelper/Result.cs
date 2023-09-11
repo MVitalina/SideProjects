@@ -11,6 +11,7 @@ namespace RiseOfIndustryHelper
         public bool IsRaw { get; set; } = false;
         public string ProductName { get; set; } = "";
         public string Building { get; set; } = "";
+        public string Efficiency { get; set; } = "";         
 
         private int _buildingCount;
         public int BuildingCountToAdd
