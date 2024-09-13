@@ -33,6 +33,7 @@
             bStart = new Button();
             bAdd = new Button();
             cbProducts = new ComboBox();
+            cbCalculationType = new ComboBox();
             SuspendLayout();
             // 
             // rtbIn
@@ -85,11 +86,20 @@
             cbProducts.TabIndex = 6;
             cbProducts.Click += cbProducts_Click;
             // 
+            // cbCalculationType
+            // 
+            cbCalculationType.FormattingEnabled = true;
+            cbCalculationType.Location = new Point(226, 70);
+            cbCalculationType.Name = "cbCalculationType";
+            cbCalculationType.Size = new Size(190, 23);
+            cbCalculationType.TabIndex = 7;
+            // 
             // FormROI
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(428, 529);
+            Controls.Add(cbCalculationType);
             Controls.Add(cbProducts);
             Controls.Add(bAdd);
             Controls.Add(bStart);
@@ -109,5 +119,6 @@
         private TextBox tbProduct;
         private Button bAdd;
         private ComboBox cbProducts;
+        private ComboBox cbCalculationType;
     }
 }

@@ -8,15 +8,22 @@ namespace RiseOfIndustryHelper
 {
     public class Situation
     {
-        public Situation(string product, int quantity, int workdays, bool nested = false)
+        public Situation(string product)
+        {
+            ProductName = product;
+            //TODO add check for ProductName
+            Product = FormROI.ProductsDictionary[ProductName];
+            NeededQuantity = Product.OutputQuantity;
+            NeededWorkdays = Product.Workdays;
+        }
+        public Situation(string product, int quantity, int workdays)
         {
             ProductName = product;
             NeededQuantity = quantity;
             NeededWorkdays = workdays;
             //TODO add check for ProductName
             Product = FormROI.ProductsDictionary[ProductName];
-            Nested = nested;
-         }
+        }
 
         private enum Efficiency
         {
@@ -24,28 +31,32 @@ namespace RiseOfIndustryHelper
             Percent50,
             Percent75,
             Percent100,
-            Percent125,
-            Percent175,
-            Percent200,
+            //Percent125,
+            //Percent175,
+            //Percent200,
             Count
         }
 
         private Dictionary<Efficiency, double> ProductionTimePercents = new()
         {
-            { Efficiency.Percent25, 3 },
-            { Efficiency.Percent50, 1 },
-            { Efficiency.Percent75, 0.333 },
+            { Efficiency.Percent25, 4 },
+            { Efficiency.Percent50, 2 },
+            { Efficiency.Percent75, 1.333 },
             { Efficiency.Percent100, 1 },
-            { Efficiency.Percent125, 0.8 },
-            { Efficiency.Percent175, 0.667 },
-            { Efficiency.Percent200, 0.5 }
+            //{ Efficiency.Percent125, 0.8 },
+            //{ Efficiency.Percent175, 0.667 },
+            //{ Efficiency.Percent200, 0.5 }
         };
 
         public string ProductName { get; set; }
         public int NeededQuantity { get; set; }
         public int NeededWorkdays { get; set; }
         public Product Product { get; set; }
-        public bool Nested { get; set; }
+
+        public void CalculateNeededValuesOnly()
+        {
+
+        }
 
         public void Calculate(ref Dictionary<string, Result> resultDict, CalculationType calculationType)
         {
@@ -84,12 +95,19 @@ namespace RiseOfIndustryHelper
             //TODO add check for product contains in dict
             if (FormROI.ProductsDictionary[product].Level == "Raw Resource")
             {
-                resultDict[product] = new Result()
+                if (resultDict.ContainsKey(product))
                 {
-                    IsRaw = true,
-                    BuildingCountToAdd = inputQuantityNeeded,
-                    ProductName = product
-                };
+                    resultDict[product].BuildingCountToAdd = inputQuantityNeeded;
+                }
+                else
+                {
+                    resultDict[product] = new Result()
+                    {
+                        IsRaw = true,
+                        BuildingCountToAdd = inputQuantityNeeded,
+                        ProductName = product
+                    };
+                }
                 return;
             }
 
@@ -123,7 +141,7 @@ namespace RiseOfIndustryHelper
                         continue;
                     }
 
-                    if (currentFactoriesNeeded == factoriesBest)
+                    if (currentFactoriesNeeded <= factoriesBest)
                     {
                         efficiencyBest = efficiency;
                     }

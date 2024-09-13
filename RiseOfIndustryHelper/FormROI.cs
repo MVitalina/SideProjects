@@ -22,30 +22,43 @@ namespace RiseOfIndustryHelper
             cbProducts.Items.AddRange(autocomplete);
 
             Enabled = true;
+
+            cbCalculationType.Items.AddRange(
+                Enum.GetNames(typeof(CalculationType)).ToArray());
         }
 
         private void bStart_Click(object sender, EventArgs e)
         {
             List<Situation> situations = ParseInput();
-
+            CalculationType type = (CalculationType)Enum.Parse(typeof(CalculationType), cbCalculationType.Text);
             string resultStr = "";
-            foreach (Situation s in situations)
+
+            switch (type)
             {
-                string currentStr = $"{s.ProductName.ToUpper()}:\n";
-                string rawStr = "";
+                case CalculationType.BruteForce:
+                case CalculationType.IncludeEfficiency:
+                    foreach (Situation s in situations)
+                    {
+                        string currentStr = $"{s.ProductName.ToUpper()}:\n";
+                        string rawStr = "";
 
-                Dictionary<string, Result> resultDict = new();
-                s.Calculate(ref resultDict, CalculationType.IncludeEfficiency); //TODO checkbox CalculationType
+                        Dictionary<string, Result> resultDict = new();
 
-                foreach (var item in resultDict.Values)
-                {
-                    if (item.IsRaw)
-                        rawStr += $"{item.BuildingCountToAdd} {item.ProductName}\n";
-                    else
-                        currentStr += $"{item.BuildingCountToAdd} {item.Building} {item.Efficiency} ({item.ProductName})\n";
-                }
-
-                resultStr += currentStr + rawStr + "\n";
+                        s.Calculate(ref resultDict, type);
+                        foreach (var item in resultDict.Values)
+                        {
+                            if (item.IsRaw)
+                                rawStr += $"{item.BuildingCountToAdd} {item.ProductName}\n";
+                            else
+                                currentStr += $"{item.BuildingCountToAdd} {item.Building} {item.Efficiency} ({item.ProductName})\n";
+                        }
+                        resultStr += currentStr + rawStr + "\n";
+                    }
+                    break;
+                case CalculationType.NeededValuesOnly:
+                    break;
+                default:
+                    break;
             }
 
             rtbOut.Text = resultStr;
@@ -80,15 +93,17 @@ namespace RiseOfIndustryHelper
                 while (!textFieldParser.EndOfData)
                 {
                     string[] cols = textFieldParser.ReadFields();
-                    if (cols.Length != 3)
+                    if (cols.Length == 3)
                     {
-                        return result;
+                        result.Add(new Situation(cols[0]));
                     }
-
-                    result.Add(new Situation(
-                        cols[0],
-                        int.Parse(cols[1]),
-                        int.Parse(cols[2])));
+                    else if (cols.Length == 3)
+                    {
+                        result.Add(new Situation(
+                            cols[0],
+                            int.Parse(cols[1]),
+                            int.Parse(cols[2])));
+                    }
                 }
             }
             catch (Exception ex)
